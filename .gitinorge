@@ -1,0 +1,31 @@
+# Environment
+.env 
+.env.local
+.env.*.local
+
+# python
+_pytest_cache_/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Envs
+venv/
+env/
+.venv/
+
+# Test report
+reports/
+screenshot/
+screenshots/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
