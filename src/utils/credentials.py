@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from src.utils.contants import VALID_PASSWORD, VALID_USERNAME, INVALID_PASSWORD, INVALID_USERNAME
+from src.utils.contants import VALID_PASSWORD, VALID_USERNAME, INVALID_PASSWORD, INVALID_USERNAME, DUPLICATED_VALID_USER
 
 load_dotenv()
 def get_username():
@@ -8,6 +8,9 @@ def get_username():
 
 def get_password():
     return os.getenv('VALID_PASSWORD', VALID_PASSWORD)
+
+def get_dulpicated_user():
+    return os.getenv('DUPLICATED_VALID_USERNAME', DUPLICATED_VALID_USER)
 
 def get_credentials():
     return (get_username(), get_password())

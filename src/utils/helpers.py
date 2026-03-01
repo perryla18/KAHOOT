@@ -28,6 +28,7 @@ def wait_for_element_visible(driver, locator, timeout=DEFAULT_TIMEOUT, by = By.X
 def is_element_present(driver, locator, timeout=DEFAULT_TIMEOUT, by = By.XPATH):
     try:
         wait_for_element(driver, locator, timeout, by)
+        return True
     except TimeoutException:
         return False
     
@@ -39,13 +40,19 @@ def click_element(driver, locator, timeout = DEFAULT_TIMEOUT, by = By.XPATH):
     element = wait_for_element_clickable(driver, locator, timeout, by)
     element.click()
 
+
+def click_element_js(driver, locator, timeout=DEFAULT_TIMEOUT, by=By.XPATH):
+    element = wait_for_element(driver, locator, timeout, by)
+    scroll_to_element(driver, element)
+    driver.execute_script("arguments[0].click();", element)
+
 def send_keys_to_element(driver, locator, text, timeout = DEFAULT_TIMEOUT, by= By.XPATH, clear_first = True):
     element = wait_for_element_visible(driver, locator, timeout, by)
     if clear_first:
         element.clear()
     element.send_keys(text)
 
-def get_element_tetx(driver, locator, timeout = DEFAULT_TIMEOUT, by = By.XPATH):
+def get_element_text(driver, locator, timeout = DEFAULT_TIMEOUT, by = By.XPATH):
     element = wait_for_element_visible(driver,locator, timeout, by)
     return element.text
 

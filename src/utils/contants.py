@@ -8,7 +8,6 @@ DEFAULT_TIMEOUT = 10
 SHORT_TIMEOUT = 5
 LONG_TIMEOUT = 30
 IMPLICIT_WAIT = 10
-EXPLICITAIT = 20
 
 # BROWSER CONTANTS
 HEADLESS = False
@@ -26,6 +25,7 @@ TEST_DATA_DIR = "src/fixtures/"
 # These are fallback values only - use credentials.py for real values
 VALID_USERNAME = "test_user"        # ✅ TEST value (mẫu)
 VALID_PASSWORD = "test_password"    # ✅ TEST value (mẫu)
+DUPLICATED_VALID_USER = "test_duplicated"
 INVALID_USERNAME = "invalid_user"
 INVALID_PASSWORD = "wrong_password"
 
@@ -37,6 +37,7 @@ HIGHER_EDUCATION = "//span[normalize-space()='Higher education']"
 SCHOOL_ADMINISTRATION = "//span[normalize-space()='School administration']"
 BUSINESS_WORKSPACE = "//span[normalize-space()='Business']"
 OTHER_WORKSPACE = "//span[normalize-space()='Other']"
+#Professional
 PROFESSIONAL_OPTION = "//span[normalize-space()='Professional']"
 # STUDENT
 STUDENT_OPTION = "//span[normalize-space()='Student']"
@@ -57,8 +58,10 @@ CONFIRM_SIGNUP_OPTION = "//button[@id='marketingconsent']"
 SUBMIT_SIGNUP = "//button[normalize-space()='Continue']"
 DUPLICATED_EMAIL_ERROR = "//span[@id='email_error']"
 PASSWORD_SIGNUP_BOX = "//input[@id='password']"
-CHECKMARK = "//div[@id='anchor-tc']"
+I_AM_HUMAN_IFRAME = "//form//iframe"
+I_AM_HUMAN = "//*[@id='checkbox']"
 SIGNUP_BUTTON = "//button[normalize-space()='Sign up']"
+ONETRUST_ACCEPT = "//button[@id='onetrust-accept-btn-handler']"
 
 # LOGIN PAGE
 LOGIN_BUTTON = "//a[@href='https://create.kahoot.it/']//span[@class='menu-item-text'][normalize-space()='Log in']"

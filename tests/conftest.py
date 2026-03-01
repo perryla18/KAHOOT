@@ -1,32 +1,29 @@
-import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome import options
 import os
+import pytest
 from dotenv import load_dotenv
 
-# Load biến môi trường từ file.env
-load_dotenv()
-@pytest.fixture(scope='session')
-def base_url():
-    return os.getenv("BASE_URL")
+from src.utils.config import get_driver
+from src.utils.contants import BASE_URL
 
-@pytest.fixture(scope='function')
+load_dotenv()
+
+
+@pytest.fixture(scope="session")
+def base_url():
+    """URL gốc cho test; ưu tiên lấy từ .env nếu có."""
+    return os.getenv("BASE_URL") or BASE_URL
+
+
+@pytest.fixture(scope="function")
 def driver():
-    "Fixture create WebDriver"
-    chrome_options=options()
-    chrome_options.add_argument("--start-maximized")
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service,options=chrome_options)
-    # Return driver for test
+    """Tạo WebDriver một lần cho mỗi test; đóng driver khi test xong."""
+    driver = get_driver()
     yield driver
     driver.quit()
 
-@pytest.fixture(scope='function')
-def browser():
-    "Fixture manage to url"
+
+@pytest.fixture(scope="function")
+def browser(driver, base_url):
+    """Driver đã mở sẵn trang base_url (tiện cho test navigation)."""
     driver.get(base_url)
     return driver
-
-
