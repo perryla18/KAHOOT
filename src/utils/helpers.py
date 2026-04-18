@@ -4,6 +4,7 @@ import random
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
@@ -31,7 +32,12 @@ def is_element_present(driver, locator, timeout=DEFAULT_TIMEOUT, by = By.XPATH):
         return True
     except TimeoutException:
         return False
-    
+
+
+def xpath_string_literal(value: str) -> str:
+    """XPath 1.0 single-quoted literal; nhân đôi ' bên trong chuỗi (ví dụ O''Reilly)."""
+    return "'" + value.replace("'", "''") + "'"
+
 # ============================================
 # ELEMENT INTERACTION HELPERS
 # ============================================
@@ -55,6 +61,10 @@ def send_keys_to_element(driver, locator, text, timeout = DEFAULT_TIMEOUT, by= B
 def get_element_text(driver, locator, timeout = DEFAULT_TIMEOUT, by = By.XPATH):
     element = wait_for_element_visible(driver,locator, timeout, by)
     return element.text
+
+def select_by_value(driver, locator, value, timeout=DEFAULT_TIMEOUT, by = By.XPATH):
+    element = wait_for_element_visible(driver, locator, timeout, by)
+    Select(element).select_by_value(value)
 
 # ============================================
 # SCREENSHOT HELPERS

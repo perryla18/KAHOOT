@@ -1,9 +1,12 @@
+from datetime import datetime
+
 from src.pages.Base_page import BasePage
-from src.utils.credentials import get_username, get_password, get_dulpicated_user
+from src.utils.credentials import get_username, get_password, get_dulpicated_user, get_email
 from src.utils.contants import (
     SIGNUP_URL, SIGNUP_BUTTON, EMAIL_SIGNUP_BOX, TEACHER_OPTION, SCHOOL_WORKSPACE,
     CONTINUE_BUTTON, CONFIRM_SIGNUP_OPTION, PASSWORD_SIGNUP_BOX, LOGO,
-    PROFESSIONAL_OPTION, DUPLICATED_EMAIL_ERROR
+    PROFESSIONAL_OPTION, DUPLICATED_EMAIL_ERROR, STUDENT_OPTION, DAY, MONTH, YEAR,
+    AGE_TEXT, USERNAME_BOX
 )
 
 class SignUp(BasePage):
@@ -28,7 +31,7 @@ class SignUp(BasePage):
         self.click(SCHOOL_WORKSPACE)
 
     def enter_email_and_password(self):
-        self.send_keys(EMAIL_SIGNUP_BOX, 'abc23@gmail.com')
+        self.send_keys(EMAIL_SIGNUP_BOX, 'abc239@gmail.com')
         self.click(CONFIRM_SIGNUP_OPTION)
         self.click(CONTINUE_BUTTON)
         self.send_keys(PASSWORD_SIGNUP_BOX, get_password())
@@ -36,6 +39,31 @@ class SignUp(BasePage):
         self.accept_cookie_if_present()
         self.click(SIGNUP_BUTTON)
         return self.is_element_visible(LOGO)
+
+# Professional option
+    def signup_with_professional_account(self):
+        self.click(PROFESSIONAL_OPTION)
+        self.send_keys(EMAIL_SIGNUP_BOX, 'profes123@gamil.com')
+        self.click(CONFIRM_SIGNUP_OPTION)
+        self.click(CONTINUE_BUTTON)
+        self.send_keys(PASSWORD_SIGNUP_BOX, get_password())
+        self.click_i_am_human_if_present()
+        self.accept_cookie_if_present()
+        self.click(SIGNUP_BUTTON)
+        return self.is_element_visible(LOGO)
+
+# Student option
+    def signup_with_student_option(self, day='8', month='1', year='1996'):
+        # Create username
+        self.click(STUDENT_OPTION)
+        self.select_by_value(DAY, day)
+        self.select_by_value(MONTH, month)
+        self.select_by_value(YEAR, year)
+        text = f"You are {datetime.now().year - int(year)} years old"
+        return self.get_text(AGE_TEXT).strip() == text
+
+        
+
 
 
     
